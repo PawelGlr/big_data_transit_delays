@@ -1,23 +1,24 @@
 CREATE DATABASE bronze;
 
-
-CREATE TABLE IF NOT EXISTS bronze.vehicle_position (
+CREATE EXTERNAL TABLE IF NOT EXISTS bronze.vehicle_position (
     Lat STRING,
     Lon STRING,
     Time STRING,
     Lines STRING,
-    Brigade STRING
+    Brigade STRING,
+    load_timestamp STRING
 ) STORED AS AVRO
 location '/transit_delays/bronze/vehicle_position';
 
-CREATE TABLE IF NOT EXISTS bronze.flow_segment_data (
+CREATE EXTERNAL TABLE IF NOT EXISTS bronze.flow_segment_data (
     frc STRING,
-    currentSpeed STRING,
-    freeFlowSpeed STRING,
-    currentTravelTime STRING,
-    freeFlowTravelTime STRING,
+    current_Speed STRING,
+    free_Flow_Speed STRING,
+    current_Travel_Time STRING,
+    free_Flow_Travel_Time STRING,
     confidence STRING,
-    roadClosure STRING,
-    coordinates STRING
+    road_Closure STRING,
+    coordinates STRING,
+    load_timestamp STRING
 ) STORED AS AVRO
 location '/transit_delays/bronze/flow_segment_data';
