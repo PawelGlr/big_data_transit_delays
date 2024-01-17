@@ -1,4 +1,10 @@
 import pyspark.sql.functions as F
+
+spark = SparkSession.builder \
+    .appName("ETL_silver") \
+    .enableHiveSupport() \
+    .getOrCreate()
+
 spark.sql("set spark.sql.legacy.timeParserPolicy=LEGACY")
 
 vehicle_position_df = spark.read.table("bronze.vehicle_position")
@@ -7,7 +13,7 @@ vehicle_position_df = vehicle_position_df.select(
     F.col("lon").cast("float"),
     F.col("lat").cast("float"),
     F.to_timestamp("time", format="yyyy-MM-dd HH:mm:ss").alias("time"),
-    F.col("lines").alias("line"),
+    F.col("lines"),
     "brigade",
     F.concat(
         F.round("lon", 2),
